@@ -1,7 +1,10 @@
+import './assets/style/layout.scss'
+
 import Vue from 'vue'
 import XEUtils from 'xe-utils'
 import VXEUtils from 'vxe-utils'
 import XEAjax from 'xe-ajax'
+import VXEAjax from 'vxe-ajax'
 
 import utils from '@/common/utils'
 import router from '@/router'
@@ -28,6 +31,7 @@ Vue.component(PageFooter.name, PageFooter)
 
 // Utility
 Vue.use(VXEUtils, XEUtils, {mounts: ['cookie']})
+Vue.use(VXEAjax, XEAjax)
 
 // Config
 XEUtils.mixin(utils)
