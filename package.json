@@ -1,8 +1,8 @@
 {
-  "name": "vue-template3",
+  "name": "vue-multi-template",
   "version": "1.0.0",
   "description": "Vue",
-  "author": "Xu Liangzhan",
+  "author": "xuliangzhan",
   "private": true,
   "scripts": {
     "serve": "npm run dev",
