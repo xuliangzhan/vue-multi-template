@@ -1,4 +1,4 @@
-# 基于 vue-cli 2 实现 vue 支持多模块
+# 基于 vue-cli 2 实现，vue 支持多模块项目模板
 
  [查看博客](https://blog.csdn.net/xlz26296/article/details/79133441)
 
