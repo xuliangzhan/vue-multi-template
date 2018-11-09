@@ -72,7 +72,7 @@ module.exports = new Promise((resolve, reject) => {
       let host = ['localhost', '127.0.0.1', '0.0.0.0'].includes(devWebpackConfig.devServer.host) ? 'localhost' : devWebpackConfig.devServer.host
       devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
         compilationSuccessInfo: {
-          messages: [chalk`{bold.rgb(255,255,0) [${multiConfig.process.name}]} Your application is running here: http://${host}:${port}${config.dev.assetsPublicPath}`],
+          messages: [chalk`{bold.rgb(255,255,0) [Module => ${multiConfig.process.name}]} Your application is running here: http://${host}:${port}${config.dev.assetsPublicPath}`],
         },
         onErrors: config.dev.notifyOnErrors
         ? utils.createNotifierCallback()
