@@ -1,12 +1,10 @@
-import XEUtils from 'xe-utils'
+import CommUtils from '@comm/script/utils'
 
 const utils = {
-  getMetaTitle (route) {
-    let title = '我的博客'
-    if (route.meta && route.meta.title) {
-      title += '-' + (XEUtils.isFunction(route.meta.title) ? route.meta.title(route) : route.meta.title)
-    }
-    return title
+  ...CommUtils,
+
+  test3Fn () {
+    console.log('project3扩展函数')
   }
 }
 

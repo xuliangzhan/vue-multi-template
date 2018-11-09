@@ -8,8 +8,9 @@ import router from '@/router'
 import store from '@/store'
 import App from '@/App'
 
-import PageColumn from '@/views/layout/Column.vue'
-import PageRow from '@/views/layout/Row.vue'
+import PageColumn from '@/components/Column.vue'
+import PageRow from '@/components/Row.vue'
+
 import PageAside from '@/views/layout/Aside.vue'
 import PageHeader from '@/views/layout/Header.vue'
 import PageMain from '@/views/layout/Main.vue'
