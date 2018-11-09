@@ -13,6 +13,20 @@ const multiConfig = require('../config/multi.conf')
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
+function porxyStatic() {
+  let re = new RegExp()
+  return {
+    '/static': {
+      target: `http://${config.dev.host}:${config.dev.port}`,
+      bypass: function(req, res, proxyOptions) {
+        if (req.path.indexOf(`/${config.dev.assetsSubDirectory}/`) === 0) {
+          return req.path.replace(`/${config.dev.assetsSubDirectory}/`, `/${config.dev.assetsSubDirectory}/${multiConfig.process.name}/`);
+        }
+      }
+    }
+  }
+}
+
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
@@ -34,7 +48,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       ? { warnings: false, errors: true }
       : false,
     publicPath: config.dev.assetsPublicPath,
-    proxy: config.dev.proxyTable,
+    proxy: Object.assign(porxyStatic(), config.dev.proxyTable),
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll

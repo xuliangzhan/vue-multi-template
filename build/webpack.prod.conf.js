@@ -1,4 +1,5 @@
 'use strict'
+const fs = require('fs');
 const path = require('path')
 const utils = require('./utils')
 const webpack = require('webpack')
@@ -10,6 +11,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const multiConfig = require('../config/multi.conf')
+
+function isDirectory (path) {
+  try {
+    let stat = fs.statSync(path)
+    return stat.isDirectory()
+  } catch(e) {
+    return false
+  }
+}
 
 const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
@@ -112,15 +123,15 @@ const webpackConfig = merge(baseWebpackConfig, {
       children: true,
       minChunks: 3
     }),
-
     // copy custom static assets
-    new CopyWebpackPlugin([
+    ...(isDirectory(path.resolve(__dirname, `../static/${multiConfig.process.name}`)) ? [new CopyWebpackPlugin([
       {
-        from: path.resolve(__dirname, '../static'),
+        from: path.resolve(__dirname, `../static/${multiConfig.process.name}`),
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
-    ]),
+    ])] : []),
+    // pack zip
     ...require('./zip')
   ]
 })
