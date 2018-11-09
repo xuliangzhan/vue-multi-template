@@ -1,11 +1,11 @@
 # 基于 vue-cli 2 实现 vue 支持多模块
 
+ [查看博客](https://blog.csdn.net/xlz26296/article/details/79133441)
+
  1. 支持多模块项目
  2. 子模块支持独立运行、编译打包
  3. 支持生成 zip 包
  4. 简化代理配置
-
- [查看博客](https://blog.csdn.net/xlz26296/article/details/79133441)
 
 ``` bash
 # 切换为官网：
