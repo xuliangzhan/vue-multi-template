@@ -5,6 +5,8 @@
  3. 支持生成 zip 包
  4. 简化代理配置
 
+ [查看博客](https://blog.csdn.net/xlz26296/article/details/79133441)
+
 ``` bash
 # 切换为官网：
 npm config set registry https://registry.npmjs.org
