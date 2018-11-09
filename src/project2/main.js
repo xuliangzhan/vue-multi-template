@@ -33,7 +33,7 @@ Vue.component(PageFooter.name, PageFooter)
 Vue.use(VXEUtils, XEUtils, {mounts: ['cookie']})
 Vue.use(VXEAjax, XEAjax)
 
-// Config
+// Plugins
 XEUtils.mixin(utils)
 XEAjax.setup({
   baseURL: location.protocol + '//' + location.host
