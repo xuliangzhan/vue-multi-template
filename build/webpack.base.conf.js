@@ -35,7 +35,8 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@comm': resolve(`src/comm`),
-      '@': multiConfig.process.alias
+      '@': multiConfig.process.alias,
+      ...multiConfig.moduleAlias
     }
   },
   module: {
