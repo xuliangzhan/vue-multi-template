@@ -31,7 +31,7 @@ function getModuleProcess(name) {
   }
 }
 
-// 多项目配置
+// 多模块配置
 var importModules = ['project1', 'project2', 'project3']
 var lifecycleEvents = String(process.env.npm_lifecycle_event).split(':')
 var moduleName = getParams('name')[1] || lifecycleEvents[1]
