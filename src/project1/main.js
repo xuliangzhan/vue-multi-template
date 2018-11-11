@@ -1,4 +1,4 @@
-import './assets/style/layout.scss'
+import '@/assets/style/layout.scss'
 
 import Vue from 'vue'
 import XEUtils from 'xe-utils'
