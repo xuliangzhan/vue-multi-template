@@ -14,13 +14,12 @@ function onProxyRes(proxyRes, req, res) {
   }
 }
 
-// 代理
 function ProxyConfig(target, options) {
   return Object.assign({
     target,
     secure: false,
     changeOrigin: true,
-    ws: true,
+    ws: false,
     onProxyRes
   }, options)
 }
@@ -33,7 +32,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': new ProxyConfig('http://127.0.0.1:8080'),
-      '/publich': new ProxyConfig('http://127.0.0.1:8081')
+      '/websocket': new ProxyConfig('http://127.0.0.1:8081', {ws: true})
     },
 
     // Various Dev Server settings
