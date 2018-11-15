@@ -18,21 +18,29 @@ function getModuleAlias() {
   return alias
 }
 
-function getModuleProcess(name) {
-  if (!importModules.includes(name)) {
-    name = importModules[0]
-  }
-  return {
+function getModuleConfg (name, opts) {
+  return Object.assign({
     name,
+    port: 8080,
+    host: '0.0.0.0',
     entry: ["babel-polyfill", `./src/${name}/main.js`],
     alias: resolve(`src/${name}`),
     index: path.resolve(__dirname, `../dist/${name}/index.html`),
     assetsRoot: path.resolve(__dirname, `../dist/${name}/`)
-  }
+  }, opts)
+}
+
+function getModuleProcess(name) {
+  let mItem = importModules.find(item => item.name === name)
+  return mItem || importModules[0]
 }
 
 // 多模块配置
-var importModules = ['project1', 'project2', 'project3']
+var importModules = [
+  getModuleConfg('project1'),
+  getModuleConfg('project2'),
+  getModuleConfg('project3')
+]
 var lifecycleEvents = String(process.env.npm_lifecycle_event).split(':')
 var moduleName = getParams('name')[1] || lifecycleEvents[1]
 
