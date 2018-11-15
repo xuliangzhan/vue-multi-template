@@ -21,8 +21,11 @@ function getModuleAlias() {
 function getModuleConfg (name, opts) {
   return Object.assign({
     name,
+    assetsSubDirectory: 'static',
+    assetsPublicPath: '/',
     port: 8080,
     host: '0.0.0.0',
+    proxyTable: null,
     entry: ["babel-polyfill", `./src/${name}/main.js`],
     alias: resolve(`src/${name}`),
     index: path.resolve(__dirname, `../dist/${name}/index.html`),
@@ -35,7 +38,7 @@ function getModuleProcess(name) {
   return mItem || importModules[0]
 }
 
-// 多模块配置
+// 多模块独立配置
 var importModules = [
   getModuleConfg('project1'),
   getModuleConfg('project2'),

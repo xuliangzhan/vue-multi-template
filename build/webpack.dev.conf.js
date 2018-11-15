@@ -49,7 +49,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       ? { warnings: false, errors: true }
       : false,
     publicPath: config.dev.assetsPublicPath,
-    proxy: Object.assign(porxyStatic(), config.dev.proxyTable),
+    proxy: Object.assign(porxyStatic(), config.dev.proxyTable, multiConfig.process.proxyTable),
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll
