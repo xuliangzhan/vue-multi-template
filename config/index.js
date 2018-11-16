@@ -14,7 +14,7 @@ function onProxyRes(proxyRes, req, res) {
   }
 }
 
-function ProxyConfig(target, options) {
+function getProxyConfig(target, options) {
   return Object.assign({
     target,
     secure: false,
@@ -31,8 +31,8 @@ module.exports = {
     assetsSubDirectory: multiConfig.process.assetsSubDirectory,
     assetsPublicPath: multiConfig.process.assetsPublicPath,
     proxyTable: {
-      '/api': new ProxyConfig('http://127.0.0.1:8082'),
-      '/websocket': new ProxyConfig('http://127.0.0.1:8083', {ws: true})
+      '/api': getProxyConfig('http://127.0.0.1:8082'),
+      '/websocket': getProxyConfig('http://127.0.0.1:8083', {ws: true})
     },
 
     // Various Dev Server settings
