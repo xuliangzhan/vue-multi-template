@@ -22,7 +22,7 @@ if (zipPros.length) {
       ],
       archive: [{
         source: path.join(__dirname, `../dist/${multiConfig.process.name}`),
-        destination: path.join(__dirname, zipPros[1] ? `../${pack.name}_${zipPros[1]}.zip` : `../${pack.name}_${multiConfig.process.name}_${pack.version}_${datetime}.zip`)
+        destination: path.join(__dirname, zipPros[1] ? `../${pack.name}_${zipPros[1]}.zip` : `../${pack.name}_${multiConfig.process.name}_v${pack.version}_${datetime}.zip`)
       }]
     }
   }))
