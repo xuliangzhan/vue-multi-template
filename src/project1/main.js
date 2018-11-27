@@ -3,8 +3,6 @@ import '@/assets/style/layout.scss'
 import Vue from 'vue'
 import XEUtils from 'xe-utils'
 import VXEUtils from 'vxe-utils'
-import XEAjax from 'xe-ajax'
-import VXEAjax from 'vxe-ajax'
 
 import utils from '@/common/utils'
 import router from '@/router'
@@ -31,13 +29,9 @@ Vue.component(PageFooter.name, PageFooter)
 
 // Plugins
 Vue.use(VXEUtils, XEUtils, {mounts: ['cookie']})
-Vue.use(VXEAjax, XEAjax)
 
 // Config
 XEUtils.mixin(utils)
-XEAjax.setup({
-  baseURL: location.protocol + '//' + location.host
-})
 XEUtils.setup({
   cookies: {
     path: '/'
@@ -55,7 +49,6 @@ router.beforeEach((to, from, next) => {
 if (process.env.NODE_ENV === 'development') {
   window.Vue = Vue
   window.XEUtils = XEUtils
-  window.XEAjax = XEAjax
   window.store = store
   window.router = router
 }
