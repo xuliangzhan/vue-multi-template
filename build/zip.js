@@ -10,7 +10,7 @@ function getParams (key) {
   return item ? item.split('=') : []
 }
 
-let datetime = XEUtils.dateToString(Date.now(), 'yyyyMMddHHmmss')
+let datetime = XEUtils.toDateString(Date.now(), 'yyyyMMddHHmmss')
 let plugins = []
 
 let zipPros = getParams('zip')
