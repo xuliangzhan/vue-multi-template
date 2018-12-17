@@ -1,16 +1,16 @@
 const path = require('path')
 const argvs = process.argv.slice(2)
 
-function resolve(dir) {
+function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-function getParams(key) {
+function getParams (key) {
   let item = argvs.find(item => item.split('=')[0] === key)
   return item ? item.split('=') : []
 }
 
-function getModuleAlias() {
+function getModuleAlias () {
   let alias = {}
   importModules.forEach(name => {
     alias[`@${name}`] = resolve(`src/${name}`)
@@ -26,14 +26,14 @@ function getModuleConfg (name, opts) {
     port: 8080,
     host: '0.0.0.0',
     proxyTable: null,
-    entry: ["babel-polyfill", `./src/${name}/main.js`],
+    entry: ['babel-polyfill', `./src/${name}/main.js`],
     alias: resolve(`src/${name}`),
     index: path.resolve(__dirname, `../dist/${name}/index.html`),
     assetsRoot: path.resolve(__dirname, `../dist/${name}/`)
   }, opts)
 }
 
-function getModuleProcess(name) {
+function getModuleProcess (name) {
   let mItem = importModules.find(item => item.name === name)
   return mItem || importModules[0]
 }

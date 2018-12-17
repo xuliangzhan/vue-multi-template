@@ -2,8 +2,21 @@
 // Template version: 1.2.7
 // see http://vuejs-templates.github.io/webpack for documentation.
 
-const path = require('path')
 const multiConfig = require('./multi.conf')
+
+function proxyHandle (proxyReq, req, res, options) {
+  let origin = `${options.target.protocol}//${options.target.host}`
+  proxyReq.setHeader('origin', origin)
+  proxyReq.setHeader('referer', origin)
+}
+
+function onProxyReq (proxyReq, req, res, options) {
+  proxyHandle(proxyReq, req, res, options)
+}
+
+function onProxyReqWs (proxyReq, req, socket, options, head) {
+  proxyHandle(proxyReq, req, socket, options)
+}
 
 function getProxyConfig (target, options) {
   return Object.assign({
@@ -12,7 +25,9 @@ function getProxyConfig (target, options) {
     changeOrigin: true,
     ws: false,
     cookieDomainRewrite: {'*': ''},
-    cookiePathRewrite: {'*': '/'}
+    cookiePathRewrite: {'*': '/'},
+    onProxyReq,
+    onProxyReqWs
   }, options)
 }
 
