@@ -4,43 +4,13 @@
 
 const multiConfig = require('./multi.conf')
 
-function proxyHandle (proxyReq, req, res, options) {
-  let origin = `${options.target.protocol}//${options.target.host}`
-  proxyReq.setHeader('origin', origin)
-  proxyReq.setHeader('referer', origin)
-}
-
-function onProxyReq (proxyReq, req, res, options) {
-  proxyHandle(proxyReq, req, res, options)
-}
-
-function onProxyReqWs (proxyReq, req, socket, options, head) {
-  proxyHandle(proxyReq, req, socket, options)
-}
-
-function getProxyConfig (target, options) {
-  return Object.assign({
-    target,
-    secure: false,
-    changeOrigin: true,
-    ws: false,
-    cookieDomainRewrite: {'*': ''},
-    cookiePathRewrite: {'*': '/'},
-    onProxyReq,
-    onProxyReqWs
-  }, options)
-}
-
 module.exports = {
   dev: {
 
     // Paths
     assetsSubDirectory: multiConfig.process.assetsSubDirectory,
     assetsPublicPath: multiConfig.process.assetsPublicPath,
-    proxyTable: {
-      '/api': getProxyConfig('http://127.0.0.1:8082'),
-      '/websocket': getProxyConfig('http://127.0.0.1:8083', {ws: true})
-    },
+    proxyTable: null,
 
     // Various Dev Server settings
     host: multiConfig.process.host, // can be overwritten by process.env.HOST

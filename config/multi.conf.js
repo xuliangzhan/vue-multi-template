@@ -38,11 +38,52 @@ function getModuleProcess (name) {
   return mItem || importModules[0]
 }
 
+function proxyHandle (proxyReq, req, res, options) {
+  let origin = `${options.target.protocol}//${options.target.host}`
+  proxyReq.setHeader('origin', origin)
+  proxyReq.setHeader('referer', origin)
+}
+
+function onProxyReq (proxyReq, req, res, options) {
+  proxyHandle(proxyReq, req, res, options)
+}
+
+function onProxyReqWs (proxyReq, req, socket, options, head) {
+  proxyHandle(proxyReq, req, socket, options)
+}
+
+function getProxyConfig (target, options) {
+  return Object.assign({
+    target,
+    secure: false,
+    changeOrigin: true,
+    ws: false,
+    cookieDomainRewrite: {'*': ''},
+    cookiePathRewrite: {'*': '/'},
+    onProxyReq,
+    onProxyReqWs
+  }, options)
+}
+
+const PROXY_DOMAIN_DEFAULT = 'http://127.0.0.1:8090'
+
 // 多模块独立配置
 var importModules = [
-  getModuleConfg('project1'),
-  getModuleConfg('project2'),
-  getModuleConfg('project3')
+  getModuleConfg('project1', {
+    proxyTable: {
+      '/api/': getProxyConfig(PROXY_DOMAIN_DEFAULT)
+    },
+  }),
+  getModuleConfg('project2', {
+    proxyTable: {
+      '/api/': getProxyConfig(PROXY_DOMAIN_DEFAULT)
+    },
+  }),
+  getModuleConfg('project3', {
+    proxyTable: {
+      '/api/': getProxyConfig(PROXY_DOMAIN_DEFAULT)
+    },
+  })
 ]
 var lifecycleEvents = String(process.env.npm_lifecycle_event).split(':')
 var moduleName = getParams('name')[1] || lifecycleEvents[1]
