@@ -72,17 +72,17 @@ var importModules = [
   getModuleConfg('project1', {
     proxyTable: {
       '/api/': getProxyConfig(PROXY_DOMAIN_DEFAULT)
-    },
+    }
   }),
   getModuleConfg('project2', {
     proxyTable: {
       '/api/': getProxyConfig(PROXY_DOMAIN_DEFAULT)
-    },
+    }
   }),
   getModuleConfg('project3', {
     proxyTable: {
       '/api/': getProxyConfig(PROXY_DOMAIN_DEFAULT)
-    },
+    }
   })
 ]
 var lifecycleEvents = String(process.env.npm_lifecycle_event).split(':')
