@@ -29,6 +29,7 @@ function getModuleConfg (name, opts) {
     entry: ['babel-polyfill', `./src/${name}/main.js`],
     alias: resolve(`src/${name}`),
     index: path.resolve(__dirname, `../dist/${name}/index.html`),
+    favicon: path.resolve(__dirname, `../src/${name}/assets/favicon.ico`),
     assetsRoot: path.resolve(__dirname, `../dist/${name}/`)
   }, opts)
 }

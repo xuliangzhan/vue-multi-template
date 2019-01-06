@@ -78,7 +78,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         ? 'index.html'
         : config.build.index,
       template: 'index.html',
-      favicon: 'favicon.ico',
+      favicon: multiConfig.process.favicon,
       inject: true,
       minify: {
         removeComments: true,
