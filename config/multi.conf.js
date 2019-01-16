@@ -18,20 +18,23 @@ function getModuleAlias () {
   return alias
 }
 
-function getModuleConfg (name, opts) {
-  return Object.assign({
-    name,
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
-    port: 8080,
-    host: '0.0.0.0',
-    proxyTable: null,
-    entry: ['babel-polyfill', `./src/${name}/main.js`],
-    alias: resolve(`src/${name}`),
-    index: path.resolve(__dirname, `../dist/${name}/index.html`),
-    favicon: path.resolve(__dirname, `../src/${name}/assets/favicon.ico`),
-    assetsRoot: path.resolve(__dirname, `../dist/${name}/`)
-  }, opts)
+class MultiModule {
+  constructor (name, opts) {
+    Object.assign(this, {
+      name,
+      assetsSubDirectory: 'static',
+      assetsPublicPath: '/',
+      port: 8080,
+      host: '0.0.0.0',
+      proxyTable: null,
+      entry: ['babel-polyfill', `./src/${name}/main.js`],
+      alias: resolve(`src/${name}`),
+      index: path.resolve(__dirname, `../dist/${name}/index.html`),
+      favicon: path.resolve(__dirname, `../src/${name}/assets/favicon.ico`),
+      assetsRoot: path.resolve(__dirname, `../dist/${name}/`),
+      deployConfig: null
+    }, opts)
+  }
 }
 
 function getModuleProcess (name) {
@@ -70,17 +73,17 @@ const PROXY_DOMAIN_DEFAULT = 'http://127.0.0.1:8090'
 
 // 多模块独立配置
 var importModules = [
-  getModuleConfg('project1', {
+  new MultiModule('project1', {
     proxyTable: {
       '/api/': getProxyConfig(PROXY_DOMAIN_DEFAULT)
     }
   }),
-  getModuleConfg('project2', {
+  new MultiModule('project2', {
     proxyTable: {
       '/api/': getProxyConfig(PROXY_DOMAIN_DEFAULT)
     }
   }),
-  getModuleConfg('project3', {
+  new MultiModule('project3', {
     proxyTable: {
       '/api/': getProxyConfig(PROXY_DOMAIN_DEFAULT)
     }
