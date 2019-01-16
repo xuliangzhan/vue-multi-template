@@ -27,7 +27,9 @@ class MultiModule {
       port: 8080,
       host: '0.0.0.0',
       proxyTable: null,
-      entry: ['babel-polyfill', `./src/${name}/main.js`],
+      entry: {
+        app: ['babel-polyfill', `./src/${name}/main.js`]
+      },
       alias: resolve(`src/${name}`),
       index: path.resolve(__dirname, `../dist/${name}/index.html`),
       favicon: path.resolve(__dirname, `../src/${name}/assets/favicon.ico`),
