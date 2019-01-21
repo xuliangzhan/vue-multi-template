@@ -5,7 +5,6 @@ import getters from './getters'
 import actions from './actions'
 import mutations from './mutations'
 
-import main from './modules/main'
 import event from './modules/event'
 
 Vue.use(Vuex)
@@ -14,7 +13,7 @@ const store = new Vuex.Store({
   mutations,
   getters,
   actions,
-  modules: { main, event }
+  modules: { event }
 })
 
 // document.addEventListener('click', evnt => store.dispatch('triggerEvent', evnt))

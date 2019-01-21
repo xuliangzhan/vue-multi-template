@@ -1,17 +1,15 @@
 import * as types from '../mutation-types'
 
 const state = {
-  click: null,
-  resize: null
+  click: null
 }
 
 const getters = {
-  onclick: state => state.click,
-  onresize: state => state.resize
+  globalClick: state => state.click
 }
 
 const actions = {
-  triggerEvent ({ state, commit }, evnt) {
+  triggerEvent ({ commit }, evnt) {
     commit(types.SET_EVENT, evnt)
   }
 }
