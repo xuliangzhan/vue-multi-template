@@ -20,7 +20,7 @@
     "build:project3:zip": "node build/build.js name=project3 zip"
   },
   "dependencies": {
-    "vue": "^2.5.17",
+    "vue": "^2.5.22",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
     "vxe-utils": "^1.4.6",
@@ -80,7 +80,7 @@
     "url-loader": "^0.6.2",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
-    "vue-template-compiler": "^2.5.17",
+    "vue-template-compiler": "^2.5.22",
     "webpack": "^3.12.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.11.3",
