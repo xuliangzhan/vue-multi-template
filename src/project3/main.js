@@ -28,7 +28,7 @@ Vue.component(PageMain.name, PageMain)
 Vue.component(PageFooter.name, PageFooter)
 
 // Utility
-Vue.use(VXEUtils, XEUtils, {mounts: ['cookie']})
+Vue.use(VXEUtils, XEUtils, { mounts: ['cookie'] })
 
 // Plugins
 XEUtils.mixin(utils)
