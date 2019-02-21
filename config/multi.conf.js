@@ -12,7 +12,7 @@ function getParams (key) {
 
 function getModuleAlias () {
   let alias = {}
-  importModules.forEach(name => {
+  importModules.forEach(({ name }) => {
     alias[`@${name}`] = resolve(`src/${name}`)
   })
   return alias
@@ -64,8 +64,8 @@ function getProxyConfig (target, options) {
     secure: false,
     changeOrigin: true,
     ws: false,
-    cookieDomainRewrite: {'*': ''},
-    cookiePathRewrite: {'*': '/'},
+    cookieDomainRewrite: { '*': '' },
+    cookiePathRewrite: { '*': '/' },
     onProxyReq,
     onProxyReqWs
   }, options)

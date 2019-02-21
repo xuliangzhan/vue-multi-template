@@ -14,14 +14,13 @@ const multiConfig = require('../config/multi.conf')
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
-function porxyStatic() {
-  let re = new RegExp()
+function porxyStatic () {
   return {
     '/static': {
       target: `http://${config.dev.host}:${config.dev.port}`,
-      bypass: function(req, res, proxyOptions) {
+      bypass: function (req, res, proxyOptions) {
         if (req.path.indexOf(`/${config.dev.assetsSubDirectory}/`) === 0) {
-          return req.path.replace(`/${config.dev.assetsSubDirectory}/`, `/${config.dev.assetsSubDirectory}/${multiConfig.process.name}/`);
+          return req.path.replace(`/${config.dev.assetsSubDirectory}/`, `/${config.dev.assetsSubDirectory}/${multiConfig.process.name}/`)
         }
       }
     }
@@ -87,11 +86,11 @@ module.exports = new Promise((resolve, reject) => {
       let host = ['localhost', '127.0.0.1', '0.0.0.0'].includes(devWebpackConfig.devServer.host) ? 'localhost' : devWebpackConfig.devServer.host
       devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
         compilationSuccessInfo: {
-          messages: [chalk`{bold.rgb(255,255,0) [${pack.name} => ${multiConfig.process.name}]} Your application is running here: http://${host}:${port}${config.dev.assetsPublicPath}`],
+          messages: [chalk`{bold.rgb(255,255,0) [${pack.name} => ${multiConfig.process.name}]} Your application is running here: http://${host}:${port}${config.dev.assetsPublicPath}`]
         },
         onErrors: config.dev.notifyOnErrors
-        ? utils.createNotifierCallback()
-        : undefined
+          ? utils.createNotifierCallback()
+          : undefined
       }))
 
       resolve(devWebpackConfig)
