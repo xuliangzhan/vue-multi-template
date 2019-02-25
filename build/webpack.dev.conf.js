@@ -31,12 +31,12 @@ function porxyStatic () {
       target: `http://${config.dev.host}:${config.dev.port}`,
       bypass: function (req, res, proxyOptions) {
         if (req.path.indexOf(`/${config.dev.assetsSubDirectory}/`) === 0) {
-          let selfPath = req.path.replace(`/${config.dev.assetsSubDirectory}/`, `/${config.dev.assetsSubDirectory}/${multiConfig.process.name}/`)
-          let commPath = req.path.replace(`/${config.dev.assetsSubDirectory}/`, `/${config.dev.assetsSubDirectory}/comm/`)
-          if (isExists(path.resolve(__dirname, `../${selfPath}`))) {
-            return selfPath
-          } else if (isExists(path.resolve(__dirname, `../${commPath}`))) {
-            return commPath
+          let publics = multiConfig.process.publics
+          for (let len = publics.length - 1; len >= 0; len--) {
+            let pubPath = req.path.replace(`/${config.dev.assetsSubDirectory}/`, `/${config.dev.assetsSubDirectory}/${publics[len]}/`)
+            if (isExists(path.resolve(__dirname, `../${pubPath}`))) {
+              return pubPath
+            }
           }
           return req.path
         }

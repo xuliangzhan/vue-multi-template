@@ -92,19 +92,13 @@ const webpackConfig = merge(baseWebpackConfig, {
     // enable scope hoisting
     new webpack.optimize.ModuleConcatenationPlugin(),
     // copy custom static assets
-    new CopyWebpackPlugin([].concat(isDirectory(path.resolve(__dirname, `../static/comm`)) ? [
-      {
-        from: path.resolve(__dirname, `../static/comm`),
+    new CopyWebpackPlugin(multiConfig.process.publics.filter(name => isDirectory(path.resolve(__dirname, `../static/${name}`))).map(name => {
+      return {
+        from: path.resolve(__dirname, `../static/${name}`),
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
-    ] : []).concat(isDirectory(path.resolve(__dirname, `../static/${multiConfig.process.name}`)) ? [
-      {
-        from: path.resolve(__dirname, `../static/${multiConfig.process.name}`),
-        to: config.build.assetsSubDirectory,
-        ignore: ['.*']
-      }
-    ] : [])),
+    })),
     // pack zip
     ...require('./packZip')
   ],

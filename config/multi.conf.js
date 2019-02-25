@@ -34,6 +34,7 @@ class MultiModule {
       index: path.resolve(__dirname, `../dist/${name}/index.html`),
       favicon: path.resolve(__dirname, `../src/${name}/assets/favicon.ico`),
       assetsRoot: path.resolve(__dirname, `../dist/${name}/`),
+      publics: [name].concat(opts.statics || []),
       deployConfig: null
     }, opts)
   }
