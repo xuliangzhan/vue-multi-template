@@ -106,7 +106,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       }
     ] : [])),
     // pack zip
-    ...require('./zip')
+    ...require('./packZip')
   ],
   optimization: {
     runtimeChunk: {
