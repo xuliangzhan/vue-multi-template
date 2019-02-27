@@ -30,7 +30,7 @@
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
     "vxe-utils": "^1.4.6",
-    "xe-utils": "^1.8.7"
+    "xe-utils": "^1.8.8"
   },
   "devDependencies": {
     "@babel/core": "^7.3.3",
