@@ -29,7 +29,7 @@
     "vue": "^2.5.22",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
-    "vxe-utils": "^1.4.6",
+    "vxe-utils": "^1.4.8",
     "xe-utils": "^1.8.9"
   },
   "devDependencies": {
