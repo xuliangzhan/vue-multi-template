@@ -1,12 +1,12 @@
 import Vue from 'vue'
-import XEUtils from 'xe-utils'
 import Router from 'vue-router'
 
-import Home from '../views/home/Home.vue'
+// 导入其他模块的路由
+import Home from '@project3/views/home/Home.vue'
 
 Vue.use(Router)
 
-const router = new Router({
+export default new Router({
   mode: 'history',
   routes: [
     {
@@ -23,10 +23,3 @@ const router = new Router({
     }
   ]
 })
-
-router.beforeEach((to, from, next) => {
-  document.title = XEUtils.getMetaTitle(to)
-  next()
-})
-
-export default router

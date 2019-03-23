@@ -81,6 +81,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
+      pubdate: multiConfig.process.pubdate,
       filename: 'index.html',
       template: 'index.html',
       favicon: multiConfig.process.favicon,

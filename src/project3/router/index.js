@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // 首页
-import Home from '@/views/home/Home.vue'
+import Home from '../views/home/Home.vue'
 
 Vue.use(Router)
 

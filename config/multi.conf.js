@@ -1,4 +1,6 @@
 const path = require('path')
+const XEUtils = require('xe-utils')
+const pack = require('../package.json')
 const argvs = process.argv.slice(2)
 
 function resolve (dir) {
@@ -20,6 +22,7 @@ function getModuleAlias () {
 
 class MultiModule {
   constructor (name, opts) {
+    let datetime = XEUtils.toDateString(Date.now(), 'yyyyMMddHHmmss')
     Object.assign(this, {
       name,
       assetsSubDirectory: 'static',
@@ -34,6 +37,7 @@ class MultiModule {
       index: path.resolve(__dirname, `../dist/${name}/index.html`),
       favicon: path.resolve(__dirname, `../src/${name}/assets/favicon.ico`),
       assetsRoot: path.resolve(__dirname, `../dist/${name}/`),
+      pubdate: `${name}_v${pack.version}_${datetime}`,
       publics: [name].concat(opts.statics || []),
       deployConfig: null
     }, opts)
@@ -46,7 +50,7 @@ function getModuleProcess (name) {
 }
 
 function proxyHandle (proxyReq, req, res, options) {
-  let origin = `${options.target.protocol}//${options.target.host}`
+  let origin = `${options.target.protocol}//${options.target.hostname}`
   proxyReq.setHeader('origin', origin)
   proxyReq.setHeader('referer', origin)
 }
@@ -87,6 +91,11 @@ var importModules = [
     }
   }),
   new MultiModule('project3', {
+    proxyTable: {
+      '/api/': getProxyConfig(PROXY_DOMAIN_DEFAULT)
+    }
+  }),
+  new MultiModule('project4', {
     proxyTable: {
       '/api/': getProxyConfig(PROXY_DOMAIN_DEFAULT)
     }
