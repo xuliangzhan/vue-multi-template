@@ -27,9 +27,9 @@ function createScripts (projects) {
 
 pack.scripts = createScripts(multiConfig.modules.map(item => item.name))
 
-fs.writeFile('./package.json', JSON.stringify(pack, null, 2), { 'encoding': 'utf-8' }, err=> {
+fs.writeFile('./package.json', JSON.stringify(pack, null, 2), { 'encoding': 'utf-8' }, err => {
   if (err) {
     throw err
   }
-  console.log('Init scripts complete.');
+  console.log('Init scripts complete.')
 })
