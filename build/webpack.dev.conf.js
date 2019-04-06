@@ -1,4 +1,5 @@
 'use strict'
+const os = require('os')
 const fs = require('fs')
 const path = require('path')
 const utils = require('./utils')
@@ -15,6 +16,19 @@ const multiConfig = require('../config/multi.conf')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
+
+function getIPAdress () {
+  var interfaces = os.networkInterfaces()
+  for (var devName in interfaces) {
+    var iface = interfaces[devName]
+    for (var i = 0; i < iface.length; i++) {
+      var alias = iface[i]
+      if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
+        return alias.address
+      }
+    }
+  }
+}
 
 function isExists (path) {
   try {
@@ -105,7 +119,7 @@ module.exports = new Promise((resolve, reject) => {
       let host = ['localhost', '127.0.0.1', '0.0.0.0'].includes(devWebpackConfig.devServer.host) ? 'localhost' : devWebpackConfig.devServer.host
       devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
         compilationSuccessInfo: {
-          messages: [chalk`{bold.rgb(255,255,0) [${pack.name} => ${multiConfig.process.name}]} Your application is running here: http://${host}:${port}${config.dev.assetsPublicPath}`]
+          messages: [chalk`{bold.rgb(255,255,0) [${pack.name} => ${multiConfig.process.name}]} App running at:\n - Local:   {bold.cyan http://${host}:${port}${config.dev.assetsPublicPath}}\n - Network: {bold.cyan http://${getIPAdress()}:${port}${config.dev.assetsPublicPath}}`]
         },
         onErrors: config.dev.notifyOnErrors
           ? utils.createNotifierCallback()
