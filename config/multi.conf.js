@@ -1,6 +1,7 @@
 const path = require('path')
 const XEUtils = require('xe-utils')
-const pack = require('../package.json')
+const pack = require('../package.json.js')
+const proxyConf = require('./proxy.conf')
 const argvs = process.argv.slice(2)
 
 function resolve (dir) {
@@ -31,7 +32,9 @@ class MultiModule {
       host: '0.0.0.0',
       proxyTable: null,
       entry: {
-        app: ['babel-polyfill', `./src/${name}/main.js`]
+        // 如果需要使用 babel-polyfill 可以自行修改，默认不引用
+        app: `./src/${name}/main.js`
+        // app: ['babel-polyfill', `./src/${name}/main.js`],
       },
       alias: resolve(`src/${name}`),
       index: path.resolve(__dirname, `../dist/${name}/index.html`),
@@ -76,29 +79,29 @@ function getProxyConfig (target, options) {
   }, options)
 }
 
-const PROXY_DOMAIN_DEFAULT = 'http://127.0.0.1:8090'
-
 // 多模块独立配置
 var importModules = [
   new MultiModule('project1', {
     proxyTable: {
-      '/api/': getProxyConfig(PROXY_DOMAIN_DEFAULT)
+      '/api/': getProxyConfig(proxyConf.PROXY_DOMAIN_PROJECT1)
     }
   }),
   new MultiModule('project2', {
     proxyTable: {
-      '/api/': getProxyConfig(PROXY_DOMAIN_DEFAULT)
+      '/api/': getProxyConfig(proxyConf.PROXY_DOMAIN_PROJECT2)
     }
   }),
   new MultiModule('project3', {
     proxyTable: {
-      '/api/': getProxyConfig(PROXY_DOMAIN_DEFAULT)
-    }
+      '/api/': getProxyConfig(proxyConf.PROXY_DOMAIN_PROJECT3)
+    },
+    publics: ['myjs'] // 引入额外的静态资源
   }),
   new MultiModule('project4', {
     proxyTable: {
-      '/api/': getProxyConfig(PROXY_DOMAIN_DEFAULT)
-    }
+      '/api/': getProxyConfig(proxyConf.PROXY_DOMAIN_PROJECT4)
+    },
+    publics: ['myjs'] // 引入额外的静态资源
   })
 ]
 var lifecycleEvents = String(process.env.npm_lifecycle_event).split(':')
