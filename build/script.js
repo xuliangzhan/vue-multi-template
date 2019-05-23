@@ -7,16 +7,14 @@ function createScripts (projects) {
   let scripts = Object.assign({}, pack.scripts, {
     'clear': 'node build/clear.js',
     'dev': `webpack-dev-server --inline --progress --config build/webpack.dev.conf.js`,
-    'build': ['npm install'].concat(projects.map(name => `npm run build:${name}`)).join(' && '),
-    'deploy': ['npm install'].concat(projects.map(name => `npm run deploy:${name}`)).join(' && ')
+    'build': ['npm install'].concat(projects.map(name => `npm run build:${name}`)).join(' && ')
   })
   projects.forEach(name => {
     Object.assign(scripts, {
       [`dev:${name}`]: `webpack-dev-server --inline --progress --config build/webpack.dev.conf.js`,
       [`start:${name}`]: `node build/node-server.js name=${name}`,
       [`build:${name}`]: `node build/build.js name=${name}`,
-      [`build:${name}:zip`]: `node build/build.js name=${name} zip`,
-      [`deploy:${name}`]: `node build/build.js zip=${name} name=${name} && node deploy/deploy name=${name}`
+      [`build:${name}:zip`]: `node build/build.js name=${name} zip`
     })
   })
   Object.keys(scripts).sort().forEach(key => {

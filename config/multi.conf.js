@@ -1,6 +1,6 @@
 const path = require('path')
 const XEUtils = require('xe-utils')
-const pack = require('../package.json.js')
+const pack = require('../package.json')
 const proxyConf = require('./proxy.conf')
 const argvs = process.argv.slice(2)
 
