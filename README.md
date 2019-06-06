@@ -29,7 +29,7 @@ node build/script
 npm install
 
 # （单个模块）启动本地服务
-npm run serve:模块名
+npm run dev:模块名 或 npm run serve:模块名
 
 # （所有模块）编译所有生产包
 npm run build
