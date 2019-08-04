@@ -96,7 +96,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       pubdate: multiConfig.process.pubdate,
       filename: 'index.html',
-      template: 'index.html',
+      template: path.resolve(__dirname, '../public/index.html'),
       favicon: multiConfig.process.favicon,
       inject: true
     })

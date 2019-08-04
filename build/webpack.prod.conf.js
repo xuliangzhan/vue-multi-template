@@ -61,7 +61,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       filename: process.env.NODE_ENV === 'testing'
         ? 'index.html'
         : config.build.index,
-      template: 'index.html',
+      template: path.resolve(__dirname, '../public/index.html'),
       favicon: multiConfig.process.favicon,
       inject: true,
       minify: {
@@ -76,10 +76,10 @@ const webpackConfig = merge(baseWebpackConfig, {
     new webpack.HashedModuleIdsPlugin(),
     // enable scope hoisting
     new webpack.optimize.ModuleConcatenationPlugin(),
-    // copy custom static assets
-    new CopyWebpackPlugin(multiConfig.process.publics.filter(name => isDirectory(path.resolve(__dirname, `../static/${name}`))).map(name => {
+    // copy custom public assets
+    new CopyWebpackPlugin(multiConfig.process.publics.filter(name => isDirectory(path.resolve(__dirname, `../public/${name}`))).map(name => {
       return {
-        from: path.resolve(__dirname, `../static/${name}`),
+        from: path.resolve(__dirname, `../public/${name}`),
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
