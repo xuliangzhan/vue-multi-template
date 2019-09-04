@@ -38,7 +38,7 @@ function isExists (path) {
   }
 }
 
-function porxyStatic () {
+function porxyStatic() {
   return {
     '/static': {
       target: `http://${config.dev.host}:${config.dev.port}`,
@@ -46,12 +46,12 @@ function porxyStatic () {
         if (req.path.indexOf(`/${config.dev.assetsSubDirectory}/`) === 0) {
           let publics = multiConfig.process.publics
           for (let len = publics.length - 1; len >= 0; len--) {
-            let pubPath = req.path.replace(`/${config.dev.assetsSubDirectory}/`, `/${config.dev.assetsSubDirectory}/${publics[len]}/`)
-            if (isExists(path.resolve(__dirname, `../${pubPath}`))) {
+            let pubPath = req.path.replace(`/${config.dev.assetsSubDirectory}/`, `/${publics[len]}/`);
+            if (isExists(path.resolve(__dirname, `../public/${pubPath}`))) {
               return pubPath
             }
           }
-          return req.path
+          return req.path.replace(`/${config.dev.assetsSubDirectory}/`, `/${multiConfig.process.name}/`)
         }
       }
     }
@@ -78,6 +78,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     overlay: config.dev.errorOverlay
       ? { warnings: false, errors: true }
       : false,
+    contentBase: path.join(__dirname, "../public"),
     publicPath: config.dev.assetsPublicPath,
     proxy: Object.assign(porxyStatic(), config.dev.proxyTable, multiConfig.process.proxyTable),
     quiet: true, // necessary for FriendlyErrorsPlugin
